@@ -3,6 +3,9 @@
 namespace Tests\Unit;
 
 //use PHPUnit\Framework\TestCase;
+
+use App\Models\User;
+
 use Tests\TestCase;
 
 class SeatsTest extends TestCase
@@ -25,15 +28,33 @@ class SeatsTest extends TestCase
     }
 
     public function test_room_store(){
-        $response = $this->call('POST','/rooms',[
-            'room_name' => 'Room3',
-            'movie_title' => 'The Menu',
-            'movie_description' => 'testtest',
+        $user = User::factory()->create(['firstname'=>'admin']);
+
+
+        $response = $this->actingAs($user)->call('POST', '/rooms', [
+            'room_name' => 'test',
+            'movie_title' => 'test ',
+            'movie_description' => 'test',
             'image' => 'resources/images/themenu.jpg'
         ]);
 
+        /*$response = $this->call('POST','/rooms',[
+            'room_name' => 'Room',
+            'movie_title' => 'The ',
+            'movie_description' => 'test',
+            'image' => 'resources/images/themenu.jpg'
+        ]);*/
+
         $response->assertStatus($response->status(),200);
-        //dd($response);
-        $response->assertRedirect('/rooms');
+       //dd($response);
+
+
+        $response->assertRedirect('/');
+
+    }
+
+    public function test_path(){
+        $response = $this->get('/');
+        $response->assertStatus(200);
     }
 }

@@ -78,7 +78,7 @@ class UserTest extends TestCase
         ]);
 
         $response->assertRedirect('/');
-        dd($response);
+        //dd($response);
 
 
     }

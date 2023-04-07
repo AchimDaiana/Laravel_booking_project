@@ -23,7 +23,7 @@ use App\Http\Controllers\RoomController;
 */
 
 Route::get('/',[RoomController::class,'index']);
-Route::resource('rooms',RoomController::class);//->middleware('admin');
+Route::resource('rooms',RoomController::class)->middleware('admin');
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
